@@ -1,0 +1,36 @@
+﻿<Window x:Class="UVTextureReverser.ProjectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UVTextureReverser"
+        mc:Ignorable="d"
+        Title="Projexture - Project Image onto Texture" Height="500" Width="1000" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Texture Mapping" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="402" Height="402">
+            <Image Name="Projection" MaxWidth="400" MaxHeight="400" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+
+
+        <Label Content="Projected Texture" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top"/>
+        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="588,36,0,0" VerticalAlignment="Top" Width="402" Height="402">
+            <Image Name="Texture"  MaxWidth="400" MaxHeight="400" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Border>
+        <Button Name="SaveTexture" Content="Save" HorizontalAlignment="Left" Margin="920,455,0,0" VerticalAlignment="Top" Click="ButtonSave_Click"/>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="866,455,0,0" VerticalAlignment="Top"/>
+        <Button Name="ButtonProject" Content="Project" HorizontalAlignment="Left" Margin="500,237,0,0" VerticalAlignment="Top" Click="ButtonProject_Click"/>
+        <Button Name="ButtonLoadMapping" Content="Load" HorizontalAlignment="Left" Margin="372,13,0,0" VerticalAlignment="Top" Click="ButtonLoad_Click"/>
+        <Button Name="ButtonAddOverlay" Content="Add Overlay" HorizontalAlignment="Left" Margin="334,455,0,0" VerticalAlignment="Top" Click="ButtonAddOverlay_Click"/>
+
+        <ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Left" Margin="870,13,0,0" VerticalAlignment="Top" Width="120" IsEditable="False" SelectedValuePath="Tag" >
+            <ComboBoxItem Content="256x256" Tag="8"/>
+            <ComboBoxItem Content="512x512" Tag="9"/>
+            <ComboBoxItem Content="1024x1024" Tag="10"/>
+            <ComboBoxItem Content="2048x2048" Tag="11" IsSelected="True" />
+            <ComboBoxItem Content="4096x4096" Tag="12" />
+        </ComboBox>
+
+
+    </Grid>
+</Window>

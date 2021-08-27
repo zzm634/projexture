@@ -1,0 +1,28 @@
+﻿<Window x:Class="UVTextureReverser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UVTextureReverser"
+        mc:Ignorable="d"
+        Title="Projexture - Start" Height="580" Width="542">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="522" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="522" />
+        </Grid.ColumnDefinitions>
+        <Image HorizontalAlignment="Left" Height="512" Margin="10,10,0,0" VerticalAlignment="Top" Width="512"
+			   Name="ImagePreview" />
+        <Button Content="Load Image" HorizontalAlignment="Right" Margin="0,0,0,0" Grid.Row="1" VerticalAlignment="Bottom" Click="Button_LoadImage_Click"/>
+        <Label Content="Mask" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
+        <Slider HorizontalAlignment="Left" Margin="60,2,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120" Minimum="0" Maximum="11" Name="MaskSlider"/>
+        <CheckBox Content="Horizontal" HorizontalAlignment="Left" Margin="211,10,0,0" Grid.Row="1" VerticalAlignment="Top" Name="HorizCheckbox"/>
+        <Button Content="CreateMask" HorizontalAlignment="Left" Margin="315,5,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_LoadMask_Click"/>
+        <Button Name="Screenshot" Content="Screenshot" HorizontalAlignment="Left" Margin="397,8,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Screenshot_Click"/>
+
+    </Grid>
+</Window>
