@@ -5,31 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UVTextureReverser"
         mc:Ignorable="d"
-        Title="New Scan" Height="205" Width="410">
-    <Grid>
-        <Label Content="Texture Location" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="TestTooltip"/>
-        <TextBox Name="TexturePath" HorizontalAlignment="Left" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390" Text="C:/PornDownloader/TheCreatorOfAPerfectSystem.tga" />
-        <Button Name="BrowseButton" Content="Browse" HorizontalAlignment="Left" Margin="350,14,0,0" VerticalAlignment="Top" Padding="5,0,5,0" Click="BrowseButton_Click"/>
+        Title="New Scan" Height="160" Width="420" ResizeMode="NoResize">
 
-        <Label Content="Texture Resolution" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Left" Margin="135,72,0,0" VerticalAlignment="Top" Width="120" IsEditable="False" SelectedValuePath="Tag" >
-            <ComboBoxItem Content="256x256" Tag="8"/>
-            <ComboBoxItem Content="512x512" Tag="9"/>
-            <ComboBoxItem Content="1024x1024" Tag="10"/>
-            <ComboBoxItem Content="2048x2048" Tag="11" IsSelected="True" />
-        </ComboBox>
+	<DockPanel>
+		<DockPanel DockPanel.Dock="Top" Height="Auto" HorizontalAlignment="Stretch" Margin="10,0,10,0">
+			<Label Content="Texture Location" HorizontalAlignment="Stretch" ToolTip="TestTooltip"/>
 
-        <Label Content="Scan Resolution" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="ScanResolutionCombo" HorizontalAlignment="Left" Margin="135,112,0,0" VerticalAlignment="Top" Width="120" SelectedValuePath="Tag">
-            <ComboBoxItem Content="64" Tag="6"/>
-            <ComboBoxItem Content="128" Tag="7"/>
-            <ComboBoxItem Content="256" Tag="8"/>
-            <ComboBoxItem Content="512" Tag="9"/>
-            <ComboBoxItem Content="1024" Tag="10" IsSelected="True"/>
-            <ComboBoxItem Content="2048" Tag="11"/>
-        </ComboBox>
-        <Button Name="TestButton" Content="Test" HorizontalAlignment="Left" Margin="312,14,0,0" VerticalAlignment="Top" Padding="5,0,5,0" Click="TestButton_Click"/>
-        <Button Name="StartButton" Content="Begin" HorizontalAlignment="Left" Margin="340,150,0,0" VerticalAlignment="Top" Width="60" Padding="5" Click="StartButton_Click"/>
-        <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="260,150,0,0" VerticalAlignment="Top" Width="60" Padding="5"/>
-    </Grid>
+			<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="BrowseButton" Content="Browse"  VerticalAlignment="Bottom" Padding="5,0,5,0" Click="BrowseButton_Click"/>
+			<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="TestButton" Content="Test" VerticalAlignment="Bottom" Padding="5,0,5,0" Click="TestButton_Click"/>
+		</DockPanel>
+		<TextBox DockPanel.Dock="Top" Name="TexturePath" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,10,0" Width="Auto" Text="C:/PornDownloader/TheCreatorOfAPerfectSystem.tga" />
+
+		<Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,0,10,0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+			<DockPanel Height="Auto" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="0">
+				<Label Content="Texture Resolution" HorizontalAlignment="Left"/>
+				<ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="auto" IsEditable="False" SelectedValuePath="Tag" DockPanel.Dock="Right">
+					<ComboBoxItem Content="256x256" Tag="8"/>
+					<ComboBoxItem Content="512x512" Tag="9"/>
+					<ComboBoxItem Content="1024x1024" Tag="10"/>
+					<ComboBoxItem Content="2048x2048" Tag="11" IsSelected="True" />
+					<ComboBoxItem Content="4096x4096" Tag="12" />
+				</ComboBox>
+			</DockPanel>
+			<DockPanel Height="Auto" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1">
+				<Label Content="Scan Resolution" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+				<ComboBox Name="ScanResolutionCombo" HorizontalAlignment="Right" VerticalAlignment="Center" Width="auto" SelectedValuePath="Tag" >
+					<ComboBoxItem Content="64" Tag="6"/>
+					<ComboBoxItem Content="128" Tag="7"/>
+					<ComboBoxItem Content="256" Tag="8"/>
+					<ComboBoxItem Content="512" Tag="9"/>
+					<ComboBoxItem Content="1024" Tag="10" IsSelected="True"/>
+					<ComboBoxItem Content="2048" Tag="11"/>
+					<ComboBoxItem Content="4096" Tag="12"/>
+				</ComboBox>
+			</DockPanel>
+		</Grid>
+		<DockPanel VerticalAlignment="Center">
+			<Button DockPanel.Dock="Right" Name="StartButton" Content="Begin" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="60" Padding="5" Click="StartButton_Click" Margin="10"/>
+			<Button DockPanel.Dock="Right" Name="CancelButton" Content="Cancel" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="60" Padding="5" Margin="10"/>
+		</DockPanel>
+	</DockPanel>
 </Window>

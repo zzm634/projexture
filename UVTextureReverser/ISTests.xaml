@@ -1,0 +1,34 @@
+﻿<Window x:Class="UVTextureReverser.ISTests"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UVTextureReverser"
+        mc:Ignorable="d"
+        Title="ISTests" Height="700" Width="1800">
+    <Grid>
+        <Image HorizontalAlignment="Left" MaxHeight="300" MaxWidth="600" VerticalAlignment="Top" Name="TopImage" Height="300" Width="600" />
+        <Image HorizontalAlignment="Left" MaxHeight="300" MaxWidth="600" VerticalAlignment="Top" Name="BottomImage" Height="300" Width="600" Margin="0,350,0,0" />
+        <Image HorizontalAlignment="Left" MaxHeight="600" MaxWidth="1200" VerticalAlignment="Top" Name="RightImage" Height="600" Width="1200" Margin="600,0,0,0" />
+        <Button Name="LoadTop" Content="Load" HorizontalAlignment="Left" Margin="0,300,0,0" VerticalAlignment="Top" Padding="5" Click="LoadTop_Click"/>
+        <Button Name="LoadBottom" Content="Load" HorizontalAlignment="Left" Margin="0,650,0,0" VerticalAlignment="Top" Padding="5" Click="LoadBottom_Click"/>
+        <ComboBox Name="TransformMode" HorizontalAlignment="Left" Margin="600,600,0,0" VerticalAlignment="Top" Width="200" SelectedValuePath="Content" SelectionChanged="TransformMode_SelectionChanged">
+            <ComboBoxItem Content="Add" />
+            <ComboBoxItem Content="Subtract" />
+            <ComboBoxItem Content="MaxBrightness" />
+            <ComboBoxItem Content="ColorizeGreen" />
+            <ComboBoxItem Content="Equals" />
+            <ComboBoxItem Content="Multiply" />
+            <ComboBoxItem Content="Invert" />
+            <ComboBoxItem Content="TransparencyMask" />
+        </ComboBox>
+        <Button Content="Screenshot" HorizontalAlignment="Left" Margin="60,300,0,0" VerticalAlignment="Top" Padding="5" Name="SSTop" Click="SSTop_Click"/>
+        <Button Content="Screenshot" HorizontalAlignment="Left" Margin="60,650,0,0" VerticalAlignment="Top" Padding="5" Name="SSBottom" Click="SSBottom_Click"/>
+        <Button Content="Swap" HorizontalAlignment="Left" Margin="260,300,0,0" VerticalAlignment="Top" Padding="5" Name="TBSwap" Click="TBSwap_Click"/>
+        <Button Content="Copy Right" HorizontalAlignment="Left" Margin="160,300,0,0" VerticalAlignment="Top" Padding="5" Name="CopyTop" Click="CopyTop_Click" />
+        <Button Content="Copy Right" HorizontalAlignment="Left" Margin="160,650,0,0" VerticalAlignment="Top" Padding="5" Name="CopyBottom" Click="CopyBottom_Click" />
+        <Button Content="Save" HorizontalAlignment="Left" Margin="805,602,0,0" VerticalAlignment="Top" Name="SaveRight"/>
+
+
+    </Grid>
+</Window>

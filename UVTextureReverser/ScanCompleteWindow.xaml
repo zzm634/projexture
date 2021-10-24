@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UVTextureReverser" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Projexture - Scan Complete" Height="710" Width="820">
-    <Grid>
-        <Label Content="Preview" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="2" BorderBrush="Black" MaxWidth="804" MaxHeight="604" Margin="8,36,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto" Height="Auto">
-            <Image Name="Image" HorizontalAlignment="Center" MaxHeight="600" VerticalAlignment="Center" MaxWidth="800"/>
-        </Border>
-        <Button Name="ButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="600,656,0,0" VerticalAlignment="Top" Padding="5" Width="60"/>
-        <Button Name="ButtonRescan" Content="Rescan" HorizontalAlignment="Left" Margin="665,656,0,0" VerticalAlignment="Top" Padding="5" Width="60"/>
-        <Button Name="ButtonSave" Content="Save" HorizontalAlignment="Left" Margin="730,656,0,0" VerticalAlignment="Top" Padding="5" Width="80" Click="Save_Click"/>
-        <Label Content="Crop" HorizontalAlignment="Left" Margin="10,652,0,0" VerticalAlignment="Top"/>
-        <xctk:IntegerUpDown Name="CropX" Height="28" Width="70" Margin="70,650,682,15" ValueChanged="Crop_ValueChanged" UpdateValueOnEnterKey="True"/>
-        <xctk:IntegerUpDown Name="CropY" Height="28" Width="70" Margin="145,650,605,15" ValueChanged="Crop_ValueChanged" UpdateValueOnEnterKey="True"/>
-        <xctk:IntegerUpDown Name="CropW" Height="28" Width="70" Margin="220,650,530,15" ValueChanged="Crop_ValueChanged" UpdateValueOnEnterKey="True"/>
-        <xctk:IntegerUpDown Name="CropH" Height="28" Width="70" Margin="295,650,455,16" ValueChanged="Crop_ValueChanged" UpdateValueOnEnterKey="True"/>
-    </Grid>
+        Title="Projexture - Scan Complete" MinHeight="300" MinWidth="400" Height="500" Width="800">
+
+    <DockPanel Margin="5">
+        <Label Content="Preview" HorizontalAlignment="Left" DockPanel.Dock="Top"/>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button Name="Cancel" Content="Cancel" HorizontalAlignment="Left" Margin="5" Padding="5" Click="Cancel_Click"/>
+            <Button Name="Rescan" Content="Rescan" HorizontalAlignment="Left" Margin="5" Padding="5" Click="Rescan_Click"/>
+            <Button Name="Save" Content="Save" HorizontalAlignment="Right" Margin="5" Padding="5" Click="Save_Click" />
+        </DockPanel>
+        <Canvas Name="ScanCanvas" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Canvas.Background>
+                <ImageBrush x:Name="Image" Stretch="UniformToFill" />
+            </Canvas.Background>
+        </Canvas>
+
+    </DockPanel>
 </Window>

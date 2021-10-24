@@ -6,11 +6,13 @@
         xmlns:local="clr-namespace:UVTextureReverser"
         mc:Ignorable="d"
         Title="Projexture - Scanning (18 of 18)" Height="100" Width="365" Topmost="True" ResizeMode="NoResize">
-    <Grid>
-        <Label Content="Click &quot;Next&quot; when the in-game model texture changes." HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Label Name="scanStatus" Content="Scanning: Horizontal 1024 (18 of 18)" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top" Width="220"/>
-        <Button Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="220,29,0,0" VerticalAlignment="Top" Padding="1" Width="40" Click="CancelButton_Click"/>
-        <Button Name="NextButton" Content="Next" HorizontalAlignment="Left" Margin="270,27,0,0" VerticalAlignment="Top" Width="60" Height="24" Click="NextButton_Click"/>
+    <DockPanel>
+        <Label Content="Click &quot;Next&quot; when the in-game model texture changes." HorizontalAlignment="Stretch" DockPanel.Dock="Top" Height="Auto"/>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Label Name="scanStatus" Content="Scanning: Horizontal 1024 (18 of 18)" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+            <Button DockPanel.Dock="Right" Name="NextButton" Content="Next" HorizontalAlignment="Right"  VerticalAlignment="Center" Padding="15,2,15,2" Margin="5" Click="NextButton_Click" IsDefault="True" />
+            <Button DockPanel.Dock="Right" Name="CancelButton" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5,2,5,2" Margin="5" Click="CancelButton_Click"/>
+        </DockPanel>
+    </DockPanel>
 
-    </Grid>
 </Window>

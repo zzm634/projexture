@@ -5,32 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UVTextureReverser"
         mc:Ignorable="d"
-        Title="Projexture - Project Image onto Texture" Height="500" Width="1000" ResizeMode="NoResize">
+        Title="Projexture - Project Image onto Texture" MinHeight="500" MinWidth="800">
     <Grid>
-        <Label Content="Texture Mapping" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="402" Height="402">
-            <Image Name="Projection" MaxWidth="400" MaxHeight="400" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Border>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0" Margin="10">
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Projection Mapping" />
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" >
+                <Button HorizontalAlignment="Right" Name="ButtonAddOverlay" Height="Auto" Width="Auto" Content="Open Overlay" Click="ButtonAddOverlay_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right"/>
+                <Button HorizontalAlignment="Right" Name="ButtonLoadMapping" Height="Auto" Width="Auto" Content="Open Projection Map" Click="ButtonLoadMapping_Click" Padding="2" Margin="5,5,5,0" DockPanel.Dock="Right"/>
+            </DockPanel>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Image MinHeight="400" MinWidth="400" Name="Projection"/>
+            </Border>
+        </DockPanel>
 
-
-        <Label Content="Projected Texture" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top"/>
-        <Border BorderThickness="1" BorderBrush="Black" HorizontalAlignment="Left" Margin="588,36,0,0" VerticalAlignment="Top" Width="402" Height="402">
-            <Image Name="Texture"  MaxWidth="400" MaxHeight="400" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        </Border>
-        <Button Name="SaveTexture" Content="Save" HorizontalAlignment="Left" Margin="920,455,0,0" VerticalAlignment="Top" Click="ButtonSave_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="866,455,0,0" VerticalAlignment="Top"/>
-        <Button Name="ButtonProject" Content="Project" HorizontalAlignment="Left" Margin="500,237,0,0" VerticalAlignment="Top" Click="ButtonProject_Click"/>
-        <Button Name="ButtonLoadMapping" Content="Load" HorizontalAlignment="Left" Margin="372,13,0,0" VerticalAlignment="Top" Click="ButtonLoad_Click"/>
-        <Button Name="ButtonAddOverlay" Content="Add Overlay" HorizontalAlignment="Left" Margin="334,455,0,0" VerticalAlignment="Top" Click="ButtonAddOverlay_Click"/>
-
-        <ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Left" Margin="870,13,0,0" VerticalAlignment="Top" Width="120" IsEditable="False" SelectedValuePath="Tag" >
-            <ComboBoxItem Content="256x256" Tag="8"/>
-            <ComboBoxItem Content="512x512" Tag="9"/>
-            <ComboBoxItem Content="1024x1024" Tag="10"/>
-            <ComboBoxItem Content="2048x2048" Tag="11" IsSelected="True" />
-            <ComboBoxItem Content="4096x4096" Tag="12" />
-        </ComboBox>
-
+        <DockPanel Grid.Column="1" Margin="10">
+            <DockPanel DockPanel.Dock="Top">
+                <Label Content="Texture" />
+                <ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" IsEditable="False" SelectedValuePath="Tag" SelectionChanged="TextureResolutionCombo_SelectionChanged" >
+                    <ComboBoxItem Content="256x256" Tag="8"/>
+                    <ComboBoxItem Content="512x512" Tag="9"/>
+                    <ComboBoxItem Content="1024x1024" Tag="10"/>
+                    <ComboBoxItem Content="2048x2048" Tag="11" IsSelected="True" />
+                    <ComboBoxItem Content="4096x4096" Tag="12" />
+                </ComboBox>
+            </DockPanel>
+            <DockPanel DockPanel.Dock="Bottom" >
+                <Button Name="SaveTexture" Content="Save" HorizontalAlignment="Right" Click="ButtonSave_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right"/>
+                <Button Name="Preview" Content="Preview on Car" HorizontalAlignment="Right" IsEnabled="False" DockPanel.Dock="Right" Padding="2" Margin="5,5,5,0" Click="Preview_Click" />
+                <Button Name="Cancel" Content="Cancel" HorizontalAlignment="Right" DockPanel.Dock="Right" Padding="2" Margin="5,5,5,0" Click="Cancel_Click"/>
+            </DockPanel>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <Image MinHeight="400" MinWidth="400" Name="Texture"/>
+            </Border>
+        </DockPanel>
 
     </Grid>
 </Window>

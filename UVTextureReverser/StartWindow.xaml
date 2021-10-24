@@ -5,17 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UVTextureReverser"
         mc:Ignorable="d"
-        Title="Projexture" Height="150" Width="500" ResizeMode="NoResize">
-    <Grid Margin="0,0,0,0">
-        <Label Content="1) Scan a 3D model to create a texture mapping.
-               " HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top"/>
-        <Label Content="2) Use a texture mapping to project an image onto a texture." HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
+        Title="Projexture" Height="180" Width="500" ResizeMode="NoResize">
+    <DockPanel HorizontalAlignment="Stretch">
+        <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="10">
+            <Label Content="1) Scan a 3D model to create a projection map." HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <Button Content="New Texture Scan" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Width="125" Padding="5" Click="NewScan_Click"/>
+        </DockPanel>
+        <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="10">
+            <Label Content="2) Use a texture mapping to project an image onto a texture." HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-        <Button Content="New Scan" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="100" Padding="5" Click="NewScan_Click"/>
-        <Button Content="New Projection" HorizontalAlignment="Left" Margin="390,43,0,0" VerticalAlignment="Top" Width="100" Padding="5" Click="NewProjection_Click"/>
-        <Button Content="Quit" HorizontalAlignment="Left" Margin="455,95,0,0" VerticalAlignment="Top" Padding="5"/>
-        <Button Content="Help" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Padding="5"/>
-        <Label Content="Instructional Video" HorizontalAlignment="Left" Margin="52,96,0,0" VerticalAlignment="Top" />
+                <Button DockPanel.Dock="Right" Content="Open Projection Map" HorizontalAlignment="Right" VerticalAlignment="Center" Width="125" Padding="5" Click="NewProjection_Click"/>
 
-    </Grid>
+
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" Margin="10">
+            <Button Content="Quit" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5,2,5,2"/>
+            <Button Content="Help" DockPanel.Dock="Left" HorizontalAlignment="Left"  VerticalAlignment="Center" Padding="5,2,5,2"/>
+            <Label HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5" Cursor="Hand">
+                <TextBlock TextDecorations="Underline">Instructional Video</TextBlock>
+            </Label>
+        </DockPanel>
+        
+    </DockPanel>
+    
+
 </Window>
