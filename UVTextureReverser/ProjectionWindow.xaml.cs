@@ -65,7 +65,10 @@ namespace UVTextureReverser {
                 int textureSize = Int32.Parse((String)this.ScanResolutionCombo.SelectedValue);
                 int outputResolution =(1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
                 texture = projectionMap.project(overlay, textureSize).scale(outputResolution,outputResolution);
-
+                if(FillHoles.IsChecked.GetValueOrDefault(false))
+                {
+                    texture.fillSmallHoles();
+                }
                 this.Texture.Source = texture.toImageSource();
                 this.SaveTexture.IsEnabled = this.texture != null;
             }
@@ -111,6 +114,11 @@ namespace UVTextureReverser {
         }
 
         private void ScanResolutionCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            doProjection();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             doProjection();
         }

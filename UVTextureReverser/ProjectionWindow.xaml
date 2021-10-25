@@ -34,6 +34,7 @@
                     <ComboBoxItem Content="4096" Tag="12" />
                 </ComboBox>
                 <Label Content="Scan Resolution:" DockPanel.Dock="Right"/>
+                <CheckBox Name="FillHoles" Content="Fill Holes" IsChecked="False" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
                 <Label Content="Texture" />
 
             </DockPanel>

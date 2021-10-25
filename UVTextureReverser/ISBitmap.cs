@@ -259,6 +259,81 @@ namespace UVTextureReverser
             }
         }
 
+        /**
+         * Modifies this bitmap by searching for transparent pixels that are surrounded by four non-transparent pixels and averages their pixel values to fill in the empty pixel
+         */
+        public void fillSmallHoles() { 
+        
+            for(int x=1; x < (this.width-1); x++)
+            {
+                for(int y=1; y<(this.height-1); y++)
+                {
+
+                    Color px = this.bitmap[x, y];
+
+                    if(px.A == 0)
+                    {
+                        Color pu = this.bitmap[x, y - 1];
+                        Color pd = this.bitmap[x, y + 1];
+                        Color pl = this.bitmap[x - 1, y];
+                        Color pr = this.bitmap[x + 1, y];
+
+                        // all four
+                        if(pu.A != 0 && pd.A != 0 && pl.A != 0 && pr.A != 0)
+                        {
+                            this.bitmap[x, y] = average(pu,pd,pl,pr);
+                        }
+                        else if (pu.A != 0 && pd.A != 0)
+                        {
+                            // top/bottom
+                            this.bitmap[x, y] = average(pu, pd);
+                        }
+                        else if (pl.A != 0 && pr.A != 0)
+                        {
+                            // left/right
+                            this.bitmap[x, y] = average(pl, pr);
+                        }
+                        else if (pu.A != 0 && pd.A != 0 && pl.A != 0)
+                        {
+                            this.bitmap[x, y] = average(pu, pd, pl);
+                        }
+                        else if (pu.A != 0 && pd.A != 0  && pr.A != 0)
+                        {
+                            this.bitmap[x, y] = average(pu, pd, pr);
+                        }
+                        else if (pu.A != 0  && pl.A != 0 && pr.A != 0)
+                        {
+                            this.bitmap[x, y] = average(pu, pl, pr);
+                        }
+                        else if (pd.A != 0 && pl.A != 0 && pr.A != 0)
+                        {
+                            this.bitmap[x, y] = average(pd, pl, pr);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private static Color average(params Color[] colors)
+        {
+            long a = 0, r = 0, g = 0, b = 0;
+            foreach(Color c in colors)
+            {
+                a += c.A;
+                r += c.R;
+                g += c.G;
+                b += c.B;
+            }
+
+            int n = colors.Length;
+
+            return new Color((byte)(r / n),
+                (byte)(g / n),
+                (byte)(b / n),
+                (byte)(a / n));
+        }
+
         public static ISBitmap checkerboard(int textureSize, int scanSize, SDIColor black, SDIColor white)
         {
 
