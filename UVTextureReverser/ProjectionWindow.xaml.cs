@@ -22,9 +22,9 @@ namespace UVTextureReverser {
 
         // 5) Add auto-projection and auto-preview updating
 
-        private ZBitmap projectionMap;
-        private ZBitmap overlay;
-        private ZBitmap texture;
+        private ISBitmap projectionMap;
+        private ISBitmap overlay;
+        private ISBitmap texture;
         
         // where to save a preview texture when the projection is updated
         private string texturePreviewPath;
@@ -32,7 +32,7 @@ namespace UVTextureReverser {
         public ProjectionWindow(string projectionMapPath, string texturePreviewPath = null) {
             InitializeComponent();
 
-            this.projectionMap = ZBitmap.fromFile(projectionMapPath);
+            this.projectionMap = ISBitmap.fromFile(projectionMapPath);
             this.Projection.Source = projectionMap.toImageSource();
             this.SaveTexture.IsEnabled = false;
             this.texturePreviewPath = texturePreviewPath;
@@ -47,7 +47,7 @@ namespace UVTextureReverser {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Images|*.png;*.tga;*.jpg;*.bmp";
             if(ofd.ShowDialog() == true) {
-                ZBitmap newOverlay = ZBitmap.fromFile(ofd.FileName);
+                ISBitmap newOverlay = ISBitmap.fromFile(ofd.FileName);
                 if(this.projectionMap.width != newOverlay.width || this.projectionMap.height != newOverlay.height) {
                     MessageBox.Show(String.Format("Overlay image must have same dimensions as projection map ({0} x {1}", this.projectionMap.width, this.projectionMap.height), "Laziness Error");
                 } else {
@@ -62,8 +62,10 @@ namespace UVTextureReverser {
 
         private void doProjection() {
             if (overlay != null) {
-                int textureSize = Int32.Parse((String)this.TextureResolutionCombo.SelectedValue);
-                texture = projectionMap.project(overlay, textureSize);
+                int textureSize = Int32.Parse((String)this.ScanResolutionCombo.SelectedValue);
+                int outputResolution =(1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
+                texture = projectionMap.project(overlay, textureSize).scale(outputResolution,outputResolution);
+
                 this.Texture.Source = texture.toImageSource();
                 this.SaveTexture.IsEnabled = this.texture != null;
             }
@@ -94,7 +96,7 @@ namespace UVTextureReverser {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Projecture Map|*.png";
             if (ofd.ShowDialog() == true) {
-                this.projectionMap = ZBitmap.fromFile(ofd.FileName);
+                this.projectionMap = ISBitmap.fromFile(ofd.FileName);
                 updateOverlay();
             }
         }
@@ -106,6 +108,11 @@ namespace UVTextureReverser {
 
         private void Preview_Click(object sender, RoutedEventArgs e) {
             this.texture.toFile(this.texturePreviewPath);
+        }
+
+        private void ScanResolutionCombo_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            doProjection();
         }
     }
 }
