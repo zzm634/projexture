@@ -16,8 +16,8 @@
                 <Label Content="Projection Mapping" />
             </DockPanel>
             <DockPanel DockPanel.Dock="Bottom" >
-                <Button HorizontalAlignment="Right" Name="ButtonAddOverlay" Height="Auto" Width="Auto" Content="Open Overlay" Click="ButtonAddOverlay_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right"/>
-                <Button HorizontalAlignment="Right" Name="ButtonLoadMapping" Height="Auto" Width="Auto" Content="Open Projection Map" Click="ButtonLoadMapping_Click" Padding="2" Margin="5,5,5,0" DockPanel.Dock="Right"/>
+                <Button HorizontalAlignment="Right" Name="ButtonAddOverlay" Height="Auto" Width="Auto" Content="Open Overlay" Click="ButtonAddOverlay_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right" ToolTip="Opens a new projection map."/>
+                <Button HorizontalAlignment="Right" Name="ButtonLoadMapping" Height="Auto" Width="Auto" Content="Open Projection Map" Click="ButtonLoadMapping_Click" Padding="2" Margin="5,5,5,0" DockPanel.Dock="Right" ToolTip="Opens the image to be projected onto the model."/>
             </DockPanel>
             <Border BorderThickness="1" BorderBrush="Black">
                 <Image MinHeight="400" MinWidth="400" Name="Projection"/>
@@ -26,7 +26,7 @@
 
         <DockPanel Grid.Column="1" Margin="10">
             <DockPanel DockPanel.Dock="Top">
-                <ComboBox Name="ScanResolutionCombo" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Width="auto" IsEditable="False" SelectedValuePath="Tag" SelectionChanged="ScanResolutionCombo_SelectionChanged" >
+                <ComboBox Name="ScanResolutionCombo" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Width="auto" IsEditable="False" SelectedValuePath="Tag" SelectionChanged="ScanResolutionCombo_SelectionChanged" ToolTip="The resoltion at which the projection map was scanned. Should not be larger than the original scan resolution, but lower values may result in less choppy images.">
                     <ComboBoxItem Content="256" Tag="8"/>
                     <ComboBoxItem Content="512" Tag="9"/>
                     <ComboBoxItem Content="1024" Tag="10"/>
@@ -34,7 +34,7 @@
                     <ComboBoxItem Content="4096" Tag="12" />
                 </ComboBox>
                 <Label Content="Scan Resolution:" DockPanel.Dock="Right"/>
-                <CheckBox Name="FillHoles" Content="Fill Holes" IsChecked="False" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+                <Button Name="FillHoles" Content="Fill Holes" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5" Click="FillHoles_Click" ToolTip="Attempts to fill in small pixel-width holes in the projection." />
                 <Label Content="Texture" />
 
             </DockPanel>
@@ -51,10 +51,10 @@
                     </ComboBox>
                 </DockPanel>
                 <Button Name="SaveTexture" Content="Save" HorizontalAlignment="Right" Click="ButtonSave_Click" Padding="2" Margin="0" DockPanel.Dock="Right"/>
-                <Button Name="Preview" Content="Preview on Car" HorizontalAlignment="Right" IsEnabled="False" DockPanel.Dock="Right" Padding="2" Margin="5,0,5,0" Click="Preview_Click" />
+                <Button Name="Preview" Content="Preview on Model" HorizontalAlignment="Right" IsEnabled="False" DockPanel.Dock="Right" Padding="2" Margin="5,0,5,0" Click="Preview_Click" />
                 <Button Name="Cancel" Content="Cancel" HorizontalAlignment="Right" DockPanel.Dock="Right" Padding="2" Margin="5,0,5,0" Click="Cancel_Click"/>
             </DockPanel>
-            <Border BorderThickness="1" BorderBrush="Black">
+            <Border BorderThickness="1" BorderBrush="Black" Background="Black">
                 <Image MinHeight="400" MinWidth="400" Name="Texture"/>
             </Border>
         </DockPanel>

@@ -63,16 +63,13 @@ namespace UVTextureReverser {
         private void doProjection() {
             if (overlay != null) {
                 int textureSize = Int32.Parse((String)this.ScanResolutionCombo.SelectedValue);
-                int outputResolution =(1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
-                texture = projectionMap.project(overlay, textureSize).scale(outputResolution,outputResolution);
-                if(FillHoles.IsChecked.GetValueOrDefault(false))
-                {
-                    texture.fillSmallHoles();
-                }
+                texture = projectionMap.project(overlay, textureSize);
                 this.Texture.Source = texture.toImageSource();
                 this.SaveTexture.IsEnabled = this.texture != null;
             }
         }
+
+        
 
         private void updateOverlay() {
             if (overlay != null) {
@@ -86,8 +83,9 @@ namespace UVTextureReverser {
         private void ButtonSave_Click(object sender, RoutedEventArgs e) {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Texture|*.png;*.tga;*.bmp";
-            if (sfd.ShowDialog() == true) {
-                this.texture.toFile(sfd.FileName);
+            if (sfd.ShowDialog() == true) { 
+                int outputResolution = (1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
+                this.texture.scale(outputResolution, outputResolution).toFile(sfd.FileName);
             }
         }
 
@@ -118,9 +116,13 @@ namespace UVTextureReverser {
             doProjection();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        private void FillHoles_Click(object sender, RoutedEventArgs e)
         {
-            doProjection();
+            if(this.texture != null)
+            {
+                this.texture.fillSmallHoles(1);
+                this.Texture.Source = this.texture.toImageSource();
+            }
         }
     }
 }

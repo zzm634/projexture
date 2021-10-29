@@ -262,57 +262,72 @@ namespace UVTextureReverser
         /**
          * Modifies this bitmap by searching for transparent pixels that are surrounded by four non-transparent pixels and averages their pixel values to fill in the empty pixel
          */
-        public void fillSmallHoles() { 
-        
-            for(int x=1; x < (this.width-1); x++)
-            {
-                for(int y=1; y<(this.height-1); y++)
+        public void fillSmallHoles(int times) {
+
+
+            for(int time = 0; time < times; time++) {
+                bool pixelsFixed = false;
+
+                for (int x = 1; x < (this.width - 1); x++)
                 {
-
-                    Color px = this.bitmap[x, y];
-
-                    if(px.A == 0)
+                    for (int y = 1; y < (this.height - 1); y++)
                     {
-                        Color pu = this.bitmap[x, y - 1];
-                        Color pd = this.bitmap[x, y + 1];
-                        Color pl = this.bitmap[x - 1, y];
-                        Color pr = this.bitmap[x + 1, y];
 
-                        // all four
-                        if(pu.A != 0 && pd.A != 0 && pl.A != 0 && pr.A != 0)
+                        Color px = this.bitmap[x, y];
+
+                        if (px.A == 0)
                         {
-                            this.bitmap[x, y] = average(pu,pd,pl,pr);
-                        }
-                        else if (pu.A != 0 && pd.A != 0)
-                        {
-                            // top/bottom
-                            this.bitmap[x, y] = average(pu, pd);
-                        }
-                        else if (pl.A != 0 && pr.A != 0)
-                        {
-                            // left/right
-                            this.bitmap[x, y] = average(pl, pr);
-                        }
-                        else if (pu.A != 0 && pd.A != 0 && pl.A != 0)
-                        {
-                            this.bitmap[x, y] = average(pu, pd, pl);
-                        }
-                        else if (pu.A != 0 && pd.A != 0  && pr.A != 0)
-                        {
-                            this.bitmap[x, y] = average(pu, pd, pr);
-                        }
-                        else if (pu.A != 0  && pl.A != 0 && pr.A != 0)
-                        {
-                            this.bitmap[x, y] = average(pu, pl, pr);
-                        }
-                        else if (pd.A != 0 && pl.A != 0 && pr.A != 0)
-                        {
-                            this.bitmap[x, y] = average(pd, pl, pr);
+                            Color pu = this.bitmap[x, y - 1];
+                            Color pd = this.bitmap[x, y + 1];
+                            Color pl = this.bitmap[x - 1, y];
+                            Color pr = this.bitmap[x + 1, y];
+
+                            bool pixelFixed = true;
+
+                            // all four
+                            if (pu.A != 0 && pd.A != 0 && pl.A != 0 && pr.A != 0)
+                            {
+                                this.bitmap[x, y] = average(pu, pd, pl, pr);
+                            }
+                            else if (pu.A != 0 && pd.A != 0)
+                            {
+                                // top/bottom
+                                this.bitmap[x, y] = average(pu, pd);
+                            }
+                            else if (pl.A != 0 && pr.A != 0)
+                            {
+                                // left/right
+                                this.bitmap[x, y] = average(pl, pr);
+                            }
+                            else if (pu.A != 0 && pd.A != 0 && pl.A != 0)
+                            {
+                                this.bitmap[x, y] = average(pu, pd, pl);
+                            }
+                            else if (pu.A != 0 && pd.A != 0 && pr.A != 0)
+                            {
+                                this.bitmap[x, y] = average(pu, pd, pr);
+                            }
+                            else if (pu.A != 0 && pl.A != 0 && pr.A != 0)
+                            {
+                                this.bitmap[x, y] = average(pu, pl, pr);
+                            }
+                            else if (pd.A != 0 && pl.A != 0 && pr.A != 0)
+                            {
+                                this.bitmap[x, y] = average(pd, pl, pr);
+                            }
+                            else
+                            {
+                                pixelFixed = false;
+                            }
+
+                            pixelsFixed |= pixelFixed;
                         }
                     }
                 }
-            }
 
+                if (!pixelsFixed)
+                    break;
+            }
         }
 
         private static Color average(params Color[] colors)

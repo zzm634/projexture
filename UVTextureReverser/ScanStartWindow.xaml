@@ -11,10 +11,11 @@
 		<DockPanel DockPanel.Dock="Top" Height="Auto" HorizontalAlignment="Stretch" Margin="10,0,10,0">
 			<Label Content="Texture Location" HorizontalAlignment="Stretch" ToolTip="TestTooltip"/>
 
-			<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="BrowseButton" Content="Browse"  VerticalAlignment="Bottom" Padding="5,0,5,0" Click="BrowseButton_Click"/>
-			<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="TestButton" Content="Test" VerticalAlignment="Bottom" Padding="5,0,5,0" Click="TestButton_Click"/>
-		</DockPanel>
-		<TextBox DockPanel.Dock="Top" Name="TexturePath" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,10,0" Width="Auto" Text="C:/PornDownloader/TheCreatorOfAPerfectSystem.tga" />
+			<Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="BrowseButton" Content="Browse"  VerticalAlignment="Bottom" Padding="5,2,5,2" Margin="5,0,0,0" Click="BrowseButton_Click" ToolTip="Locate the texture file for the model being scanned."/>
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="TestButton" Content="Test" VerticalAlignment="Bottom" Padding="5,2,5,2" Margin="5,0,5,0" Click="TestButton_Click" ToolTip="Save a test pattern to the model texture. If the grid lines clearly visible, the scan will be more accurate."/>
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Width="Auto" Name="SpecButton" Content="Save iRacing Spec Map" VerticalAlignment="Bottom" Padding="5,2,5,2" Click="SpecButton_Click" IsEnabled="False" ToolTip="Writes a spec map texture for the model that will improve the quality of the scan by reducing the reflectivity of the model."/>
+        </DockPanel>
+		<TextBox DockPanel.Dock="Top" Name="TexturePath" HorizontalAlignment="Stretch" TextWrapping="Wrap" Margin="10,0,10,0" Width="Auto" TextChanged="TexturePath_TextChanged" />
 
 		<Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" Margin="10,0,10,0">
 			<Grid.ColumnDefinitions>
@@ -36,7 +37,7 @@
 			</DockPanel>
 			<DockPanel Height="Auto" HorizontalAlignment="Stretch" Grid.Row="0" Grid.Column="1">
 				<Label Content="Scan Resolution" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-				<ComboBox Name="ScanResolutionCombo" HorizontalAlignment="Right" VerticalAlignment="Center" Width="auto" SelectedValuePath="Tag" >
+				<ComboBox Name="ScanResolutionCombo" HorizontalAlignment="Right" VerticalAlignment="Center" Width="auto" SelectedValuePath="Tag" ToolTip="A lower scan resolution will produce a map with fewer &quot;holes&quot;, at the expense of image quality." >
 					<ComboBoxItem Content="64" Tag="6"/>
 					<ComboBoxItem Content="128" Tag="7"/>
 					<ComboBoxItem Content="256" Tag="8"/>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace UVTextureReverser {
@@ -9,6 +10,8 @@ namespace UVTextureReverser {
         public ScanStartWindow() {
             InitializeComponent();
         }
+
+        Regex iracingPaintFile = new Regex(@"^(.*car_)(\d{6}\.tga)$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
         private void TestButton_Click(object sender, RoutedEventArgs e) {
             // Generate a test image based on the specific size, and save it
@@ -34,6 +37,7 @@ namespace UVTextureReverser {
         private void BrowseButton_Click(object sender, RoutedEventArgs e) {
             Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
             sfd.Filter = "Texture File|*.png;*.tga;*.tiff;*.bmp";
+            sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\iRacing\\paint"; 
             if (sfd.ShowDialog() == true) {
                 this.TexturePath.Text = sfd.FileName;
             }
@@ -51,6 +55,29 @@ namespace UVTextureReverser {
             this.Close();
             sw.Show();
             sw.updateScanState(true);
+        }
+
+        private void SpecButton_Click(object sender, RoutedEventArgs e)
+        {
+            MatchCollection matches = iracingPaintFile.Matches(this.TexturePath.Text);
+
+            if(matches.Count != 0)
+            {
+                var prefix = matches[1];
+                var suffix = matches[2];
+                var specFilePath = prefix + "spec_" + suffix;
+
+                // use an all-green spec map file
+
+                int textureResolution = Int32.Parse(this.TextureResolutionCombo.SelectedValue.ToString());
+                ISBitmap specMap = new ISBitmap(1 << textureResolution, 1 << textureResolution, new SixLabors.ImageSharp.PixelFormats.Bgra32(0, 255, 0, 255));
+                specMap.toFile(specFilePath);
+            }
+        }
+
+        private void TexturePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            SpecButton.IsEnabled = iracingPaintFile.IsMatch(TexturePath.Text);
         }
     }
 }
