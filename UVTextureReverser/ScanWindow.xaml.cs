@@ -9,13 +9,11 @@ namespace UVTextureReverser {
     public partial class ScanWindow : Window {
 
         private ISTextureScan scan;
-
-
         public ScanWindow(ISTextureScan scan) {
             InitializeComponent();
             this.scan = scan;
-            debugWindow = new ScanDebugWindow();
-            debugWindow.Show();
+//            debugWindow = new ScanDebugWindow();
+//            debugWindow.Show();
         }
 
         private ScanDebugWindow debugWindow;

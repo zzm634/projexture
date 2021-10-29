@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UVTextureReverser", "UVTextureReverser\UVTextureReverser.csproj", "{E10D9F7F-9977-4449-BA8F-4CE2BC463B4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Projexture", "UVTextureReverser\Projexture.csproj", "{E10D9F7F-9977-4449-BA8F-4CE2BC463B4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

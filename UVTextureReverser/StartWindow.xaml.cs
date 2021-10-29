@@ -8,8 +8,6 @@ namespace UVTextureReverser {
     public partial class StartWindow : Window {
         public StartWindow() {
             InitializeComponent();
-
-            ZBitmap.executeCoordinateTests();
         }
 
         private void NewScan_Click(object sender, RoutedEventArgs e) {

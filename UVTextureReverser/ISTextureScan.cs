@@ -287,6 +287,35 @@ namespace UVTextureReverser {
             }
         }
 
+        // X is red + low 4 bits of blue
+        // Y is green + high 4 bits of blue
+        public static int getX(Color pixel)
+        {
+            return ((pixel.G & 0xFF) << 4) | (pixel.R & 0xF);
+        }
+
+        public static Color setX(Color pixel, int x)
+        {
+            return Color.FromArgb(pixel.A,
+                (pixel.R & 0xF0) | (x & 0xF),
+                (x >> 4) & 0xFF,
+                pixel.B);
+        }
+
+        public static int getY(Color pixel)
+        {
+            return ((pixel.B & 0xFF) << 4) | ((pixel.R >> 4) & 0xF);
+        }
+
+        public static Color setY(Color pixel, int y)
+        {
+            return Color.FromArgb(pixel.A,
+                (pixel.R & 0xF) | ((y & 0xF) << 4),
+                pixel.G,
+                (y >> 4) & 0xFF);
+        }
+
+
         private Color getCurrentMaskAdditionColor() {
             // the coordinate masks are always 0-4095, regardless of the texture size or scan depth
             // the current scan depth goes form 0 to "scanDepth", so the mask should be 1 << (currentScanDepth + (11 - scanDepth)
@@ -296,9 +325,9 @@ namespace UVTextureReverser {
             int additionMask = 1 << (12 - (textureSize - currentScanDepth));
 
             if (scanningVertical) {
-                return ZBitmap.setY(Color.Black, additionMask);
+                return setY(Color.Black, additionMask);
             } else {
-                return ZBitmap.setX(Color.Black, additionMask);
+                return setX(Color.Black, additionMask);
             }
         }
 

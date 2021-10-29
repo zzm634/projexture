@@ -54,7 +54,7 @@
                 <Button Name="Preview" Content="Preview on Model" HorizontalAlignment="Right" IsEnabled="False" DockPanel.Dock="Right" Padding="2" Margin="5,0,5,0" Click="Preview_Click" />
                 <Button Name="Cancel" Content="Cancel" HorizontalAlignment="Right" DockPanel.Dock="Right" Padding="2" Margin="5,0,5,0" Click="Cancel_Click"/>
             </DockPanel>
-            <Border BorderThickness="1" BorderBrush="Black" Background="Black">
+            <Border BorderThickness="1" BorderBrush="Black">
                 <Image MinHeight="400" MinWidth="400" Name="Texture"/>
             </Border>
         </DockPanel>
