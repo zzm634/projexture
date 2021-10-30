@@ -19,7 +19,7 @@
 
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom" Margin="10">
-            <Button Content="Quit" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5,2,5,2"/>
+            <Button Content="Quit" DockPanel.Dock="Right" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5,2,5,2" Name="Quit" Click="QuitButton_Click"/>
             <Button Content="Help" DockPanel.Dock="Left" HorizontalAlignment="Left"  VerticalAlignment="Center" Padding="5,2,5,2"/>
             <Label HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5" Cursor="Hand">
                 <TextBlock TextDecorations="Underline">Instructional Video</TextBlock>

@@ -50,7 +50,7 @@
 		</Grid>
 		<DockPanel VerticalAlignment="Center">
 			<Button DockPanel.Dock="Right" Name="StartButton" Content="Begin" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="60" Padding="5" Click="StartButton_Click" Margin="10"/>
-			<Button DockPanel.Dock="Right" Name="CancelButton" Content="Cancel" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="60" Padding="5" Margin="10"/>
+			<Button DockPanel.Dock="Right" Name="CancelButton" Content="Cancel" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="60" Padding="5" Margin="10" Click="CancelButton_Click"/>
 		</DockPanel>
 	</DockPanel>
 </Window>

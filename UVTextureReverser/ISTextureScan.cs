@@ -131,16 +131,16 @@ namespace UVTextureReverser {
                 return 2;
 
             if(this.scanningVertical) {
-                return 2 + minScanDepth + currentScanDepth;
+                return 2 + (textureSize-minScanDepth) + (textureSize-currentScanDepth);
             } else {
-                return 2 + currentScanDepth;
+                return 2 + (textureSize - currentScanDepth);
             }
             
 
         }
 
         public int getTotalStepsCount() {
-            return 2 + (minScanDepth * 2);
+            return 2 + ((textureSize-minScanDepth) * 2);
         }
 
         public string getStepDescription() {

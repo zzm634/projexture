@@ -26,6 +26,11 @@ namespace UVTextureReverser {
             }
 
         }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 
 

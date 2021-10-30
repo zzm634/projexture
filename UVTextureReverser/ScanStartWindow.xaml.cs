@@ -61,10 +61,9 @@ namespace UVTextureReverser {
         {
             MatchCollection matches = iracingPaintFile.Matches(this.TexturePath.Text);
 
-            if(matches.Count != 0)
-            {
-                var prefix = matches[1];
-                var suffix = matches[2];
+            if (matches.Count > 0) { 
+                var prefix = matches[0].Groups[1].Value;
+                var suffix = matches[0].Groups[2].Value;
                 var specFilePath = prefix + "spec_" + suffix;
 
                 // use an all-green spec map file
@@ -78,6 +77,12 @@ namespace UVTextureReverser {
         private void TexturePath_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             SpecButton.IsEnabled = iracingPaintFile.IsMatch(TexturePath.Text);
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            (new StartWindow()).Show();
         }
     }
 }
