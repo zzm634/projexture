@@ -15,9 +15,6 @@ namespace UVTextureReverser {
 //            debugWindow = new ScanDebugWindow();
 //            debugWindow.Show();
         }
-
-        private ScanDebugWindow debugWindow;
-
         private static void textureScanNextStep(Object ow) {
             ScanWindow w = (ScanWindow)ow;
 
@@ -48,9 +45,6 @@ namespace UVTextureReverser {
             this.scanStatus.Content = "Scanning: " + scan.getStepDescription();
             if (writeTexture) {
                 this.scan.updateScanTexture();
-            }
-            if (debugWindow != null) {
-                debugWindow.update(this.scan);
             }
         }
 
