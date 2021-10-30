@@ -421,6 +421,12 @@ namespace UVTextureReverser {
 
             var map = (new ISBitmap(this.blackScan.width, this.blackScan.height, Color.Transparent)).getRawImage();
 
+            // draw the base black image over top at 50% opacity. so that it may more easily be used as a reference
+            map.Mutate(x =>
+            {
+                x.DrawImage(this.blackScan.getRawImage(), 0.5f);
+            });
+
             /*
             map.Mutate(x => {
                 x.Opacity(254.0f / 255.0f)

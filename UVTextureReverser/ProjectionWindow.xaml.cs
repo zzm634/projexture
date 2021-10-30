@@ -117,7 +117,8 @@ namespace UVTextureReverser {
                 int outputResolution = (1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
                 try
                 {
-                this.texture.scale(outputResolution, outputResolution).toFile(sfd.FileName);
+                                    this.texture.scale(outputResolution, outputResolution).toFile(sfd.FileName);
+                       
 
                 }
                 catch (Exception ex)

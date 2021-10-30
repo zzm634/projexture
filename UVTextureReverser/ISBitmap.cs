@@ -1,4 +1,5 @@
 ﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Tga;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Processing.Processors;
@@ -109,7 +110,21 @@ namespace UVTextureReverser
 
         public void toFile(String path)
         {
-            this.bitmap.Save(path);
+            if (path.ToLower().EndsWith("tga"))
+            {
+                TgaEncoder enc = new TgaEncoder();
+                enc.BitsPerPixel = TgaBitsPerPixel.Pixel32;
+                enc.Compression = TgaCompression.None;
+                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    fs.SetLength(0); // discard contents of file
+                    enc.Encode(this.bitmap, fs);
+                }
+            }
+            else
+            {
+                this.bitmap.Save(path);
+            }
         }
 
         public static ISBitmap fromFile(String path)
