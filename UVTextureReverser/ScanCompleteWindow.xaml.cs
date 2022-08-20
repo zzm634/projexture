@@ -28,19 +28,19 @@ namespace UVTextureReverser {
             if (sfd.ShowDialog() == true) {
                 this.scan.getProjectionMap().toFile(sfd.FileName);
                 ProjectionWindow pw = new ProjectionWindow(sfd.FileName, scan.getTexturePath());
-                this.Close();
                 pw.Show();
+                this.Close();
             }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) {
-            this.Close();
             (new StartWindow()).Show();
+            this.Close();
         }
 
         private void Rescan_Click(object sender, RoutedEventArgs e) {
-            this.Close();
             (new ScanWindow(this.scan.restart())).Show();
+            this.Close();
         }
     }
 }

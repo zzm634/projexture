@@ -29,9 +29,15 @@ namespace UVTextureReverser {
             // generate a mask texture at the maximum scan resolution in X and Y directions
             // ISBitmap testMask = ISBitmap.checkerboard(textureResolution, scanResolution, System.Drawing.Color.Black, System.Drawing.Color.White);
 
-            ISBitmap testMask = ISBitmap.mask(1 << textureResolution, 1 << textureResolution, 1 << (textureResolution - scanResolution), 0, System.Drawing.Color.Black, System.Drawing.Color.White);
-
-            testMask.toFile(texturePath);
+            ISBitmap testMask = ISBitmap.mask(1 << textureResolution, 1 << textureResolution, 1 << (textureResolution - scanResolution), 1 << (textureResolution - scanResolution), System.Drawing.Color.Black, System.Drawing.Color.White);
+            try
+            {
+                testMask.toFile(texturePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not save test image. Check that the texture path exists.");
+            }
         }
 
         private void BrowseButton_Click(object sender, RoutedEventArgs e) {
@@ -52,8 +58,8 @@ namespace UVTextureReverser {
             ISTextureScan ts = new ISTextureScan(texturePath, textureResolution, scanResolution);
 
             ScanWindow sw = new ScanWindow(ts);
-            this.Close();
             sw.Show();
+            this.Close();
             sw.updateScanState(true);
         }
 
@@ -81,8 +87,8 @@ namespace UVTextureReverser {
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             (new StartWindow()).Show();
+            this.Close();
         }
     }
 }

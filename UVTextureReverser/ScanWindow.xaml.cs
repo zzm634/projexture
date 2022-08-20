@@ -32,8 +32,8 @@ namespace UVTextureReverser {
             } else {
                 // open texture scan save window and close this one
                 ScanCompleteWindow scw = new ScanCompleteWindow(this.scan);
-                this.Close();
                 scw.Show();
+                this.Close();
             }
 
             this.NextButton.IsEnabled = true;
@@ -74,7 +74,9 @@ namespace UVTextureReverser {
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
-
+            ScanStartWindow ssw = new ScanStartWindow();
+            ssw.Show();
+            this.Close();
         }
     }
 }

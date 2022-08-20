@@ -16,8 +16,9 @@
                 <Label Content="Projection Mapping" />
             </DockPanel>
             <DockPanel DockPanel.Dock="Bottom" >
-                <Button HorizontalAlignment="Right" Name="ButtonAddOverlay" Height="Auto" Width="Auto" Content="Open Overlay" Click="ButtonAddOverlay_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right" ToolTip="Opens a new projection map."/>
-                <Button HorizontalAlignment="Right" Name="ButtonLoadMapping" Height="Auto" Width="Auto" Content="Open Projection Map" Click="ButtonLoadMapping_Click" Padding="2" Margin="5,5,5,0" DockPanel.Dock="Right" ToolTip="Opens the image to be projected onto the model."/>
+                <Button HorizontalAlignment="Right" Name="ButtonAddOverlay" Height="Auto" Width="Auto" Content="Add Overlay" Click="ButtonAddOverlay_Click" Padding="2" Margin="5,5,0,0" DockPanel.Dock="Right" ToolTip="Opens a new projection map."/>
+                <Button HorizontalAlignment="Right" Name="ButtonLoadMapping" Height="Auto" Width="Auto" Content="Open Projection Map" Click="ButtonLoadMapping_Click" Padding="2" Margin="5,5,5,0" DockPanel.Dock="Left" ToolTip="Opens the image to be projected onto the model."/>
+                <Label />
             </DockPanel>
             <Border BorderThickness="1" BorderBrush="Black">
                 <Image MinHeight="400" MinWidth="400" Name="Projection"/>
@@ -34,13 +35,15 @@
                     <ComboBoxItem Content="4096" Tag="12" />
                 </ComboBox>
                 <Label Content="Scan Resolution:" DockPanel.Dock="Right"/>
+
+                <Button Name="Grow" Content="Grow" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5" Click="Grow_Click" ToolTip="Attempts to fill in small pixel-width holes in the projection." />
                 <Button Name="FillHoles" Content="Fill Holes" DockPanel.Dock="Right" VerticalAlignment="Center" Margin="5" Click="FillHoles_Click" ToolTip="Attempts to fill in small pixel-width holes in the projection." />
                 <Label Content="Texture" />
 
             </DockPanel>
             <DockPanel DockPanel.Dock="Bottom" Margin="0">
                 <DockPanel DockPanel.Dock="Left" Margin="0,0,0,0" VerticalAlignment="Center">
-                    <Label Content="Output Resolution" />
+                    <Label Content="Output Resolution:" />
 
                     <ComboBox Name="TextureResolutionCombo" HorizontalAlignment="Right" VerticalAlignment="Center" Width="Auto" IsEditable="False" SelectedValuePath="Tag" SelectionChanged="TextureResolutionCombo_SelectionChanged" >
                         <ComboBoxItem Content="256" Tag="8"/>

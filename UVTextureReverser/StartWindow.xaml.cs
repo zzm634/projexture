@@ -32,6 +32,4 @@ namespace UVTextureReverser {
             Application.Current.Shutdown();
         }
     }
-
-
 }

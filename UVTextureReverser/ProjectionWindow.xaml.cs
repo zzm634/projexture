@@ -86,7 +86,7 @@ namespace UVTextureReverser {
         private bool uiInitialized = false;
 
         private void doProjection() {
-            if (!uiInitialized) return;
+            if (!this.uiInitialized) return;
             if (overlay != null && projectionMap != null) {
                 int textureSize = Int32.Parse((String)this.ScanResolutionCombo.SelectedValue);
                 texture = projectionMap.project(overlay, textureSize);
@@ -103,7 +103,7 @@ namespace UVTextureReverser {
         {
             if (!uiInitialized) return;
             if (overlay != null && this.projectionMap != null) {
-                this.Projection.Source = projectionMap.layer(overlay).toImageSource();
+                this.Projection.Source = projectionMap.layer(overlay, 0.5f).toImageSource();
                 doProjection();
             } else {
                 this.Projection.Source = projectionMap.toImageSource();
@@ -117,9 +117,7 @@ namespace UVTextureReverser {
                 int outputResolution = (1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
                 try
                 {
-                                    this.texture.scale(outputResolution, outputResolution).toFile(sfd.FileName);
-                       
-
+                    this.texture.scale(outputResolution, outputResolution).toFile(sfd.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -149,8 +147,8 @@ namespace UVTextureReverser {
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e) {
+            new StartWindow().Show();
             this.Close();
-            (new StartWindow()).Show();
         }
 
         private void Preview_Click(object sender, RoutedEventArgs e) {
@@ -158,7 +156,8 @@ namespace UVTextureReverser {
             int outputResolution = (1 << Int32.Parse((String)this.TextureResolutionCombo.SelectedValue));
             try
             {
-                this.texture.scale(outputResolution, outputResolution).toFile(this.texturePreviewPath);
+                ISBitmap bg = new ISBitmap(outputResolution, outputResolution, System.Drawing.Color.White);
+                bg.layer(this.texture.scale(outputResolution, outputResolution), 1.0f).toFile(this.texturePreviewPath);
             } catch (Exception ex) { 
                 MessageBox.Show(ex.StackTrace, "Error saving preview image.", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.None);
             }
@@ -173,9 +172,25 @@ namespace UVTextureReverser {
         {
             if(this.texture != null)
             {
-                this.texture.fillSmallHoles(1);
+                ISBitmap filledBitmap = this.texture.fillSmallHoles(false);
+                this.texture = filledBitmap;
                 this.Texture.Source = this.texture.toImageSource();
             }
+        }
+
+        private void Grow_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.texture != null)
+            {
+                ISBitmap filledBitmap = this.texture.fillSmallHoles(true);
+                this.texture = filledBitmap;
+                this.Texture.Source = this.texture.toImageSource();
+            }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+
         }
     }
 }

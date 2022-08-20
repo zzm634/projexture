@@ -1,57 +1,61 @@
 # Using Projexture to create car textures
 
-Projecting an image onto a 3D model in Projexture is a three step process: scanning the model to create a map, painting over the map with your image, and using the map and image together to create a texture. It works by taking screenshots of the model with unique black-and-white textures that allow it to precisely determine where each pixel in the texture file is drawn on the 3D image.
+Projexture is designed to use the iRacing model viewer to help you reverse-engineer the placement of images onto a car model.
 
-![Projexture start window](01-start.jpg)
+Projecting an image onto a 3D model in Projexture is a three step process: scanning the model to create a map, painting over the map with your image, and using the map and image together to create a texture. It works by taking screenshots of the model with unique black-and-white patterns that allow it to precisely determine where each pixel in the texture file is drawn on the 3D image.
+
+In this tutorial, we're going to paint a lovely picture of Mike Racecar onto the side of this Formula iR-04.
+
+![Start window and car model](1_starting_screen.PNG)
 
 ## Scanning a Model to create a Projection Map
 
 From the main window, click on "New Texture Scan" to begin scanning a 3D model. A new window will appear that allows you to customize the parameters of your scan.
 
-![Scan start parameters](02-car.jpg)
+![Scan start parameters](2_browse_to_texture.PNG)
 
-From this window, you must first locate the texture file on disk that corresponds to the 3D model you wish to scan. Click "Browse" to locate the file. After that, you may click "Test" to save a test texture to disk to ensure that you have the correct file.
+Click "Browse" and locate the texture file that corresponds to the car you are trying to paint. You can find it under "My Documents\iRacing\paint". Locate the folder containing paint files for the car and select or create the texture file for your car. It should have the name "car_#####.tga" where the number corresponds to your iRacing customer number.
 
-Position the 3D model such that you're soomed in as far as possible on the area you want to scan. In this case, we're trying to paint the grille on this car. Adjust the texture and scan resolution to be as high as possible, using the "Test" button to test your changes, such that the scan lines are still clearly distinct from each other.
+![Test texture](3_test_texture.PNG)
 
-![Testing a scan resolution](03-test2.jpg)
+Once you've located the file, position the iRacing window and car model in such a way to maximize the area on screen that you plan on painting. You want to zoom in as much as possible for the most detail. You may click "test" to put a checkerboard pattern on the car at the specified scan resolution. The clearer the pattern is, the better the scan will be. You may need to reduce the scan resolution for a better result, though this will result in a blockier final image.
 
-The texture resolution determines the size of the texture file used, and should be as large as the game can display, while the scan resolution determines how precise the scan process will be. If the scan resolution is too high, the scan lines will blur together and Projexture will be unable to map those blurry areas (resulting in "holes" in the projection later on). If the scan resolution is too low, the projection will be "blocky" and the projection will have a lower image quality.
+The key here is to play with the iRacing window bounds to maximize the resolution. Use multiple monitors if you have them; or use nVidia's "super resolution" feature to get even more detail in the image.
 
-Once you're happy with the resolution and the position of the model, click "Begin" to start scanning. It is critically important that the position and orientation of the 3D model on screen does not change until the scan process is complete.
+You may also click "Save iRacing Spec Map" to load a specular map onto the car that will aid in the scanning process by eliminating glare.
 
-![black car](04-scanstart.jpg)
+Once you've got everything positioned correctly, click "Begin" to start scanning. *Do not move the iRacing window or reposition the camera until you have fully scanned the car.*
 
-The texture file of the 3D model will now be overwritten with various black and white patterns used to scan the paintable area of the 3D model. First, a fully-black and fully-white image will be taken of the car, followed by a series of increasingly fine horizontal and vertical stripes.
+![Scanning the car](4_scan.gif)
 
-![stripey car](05-scan.jpg)
+ A new window will pop up and the car will be painted completely black for the first image. Once the iRacing window completes rendering the new texture, click the "Next" button, and it will be re-painted white for the second image. The car will be painted with various black-and-white patterns increasing in resolution until the scan is complete. Just keep waiting for the image to change and clicking the "Next" button to capture all the images.
 
-Position the "scan" window on screen in a place that does not obscure the parts of the model you want to paint, and click the "next" button every time the model's texture changes on screen. If a spec map is being used, be sure to wait until the spec map is applied as well.
+**Scanning is not an automatic process. You have to keep clicking "Next".**
 
-![scan complete](06-preview.jpg)
+![Save the projection map](5_preview_and_save_map.png)
 
-Once the scan is complete, a preview window will open to show which pixels of the screenshot have been successfully mapped to the car. Click "Save" to save this mapping file to disk and begin the projection process.
+When the scan is complete, you will have a chance to preview the scanned area. Colored parts of the image indicate areas that have been successfully mapped to positions on the texture file, while greyscale pixels are for un-mapped areas. If you're happy with the scan, click "Save" to save the projection map to disk. Save it somewhere you may easily access it, because you're going to need to open it up right away.
 
 ## Painting an Overlay Image for a Projection Map
 
-In a later version of Projexture, it will be possible to position, rotate, and crop images directly on top of the scanned projection map, but for now, it's necessary to use external editors to create your overlay image.
+Once you have made a projection map for a car, you may project images onto the areas you have scanned. In a future version of Projexture, it will be possible to position, rotate, and crop images directly on top of the scanned projection map, but for now, it's necessary to use an external editor like Photoshop, GIMP, or Krita to create your overlay image.
 
-The overlay image must be exactly the same dimensions as the projection map, so the easiest solution is to open up the projection map file you saved in the previous step in your image editor of choice, and draw on top of it in a new layer.
+Projection maps can be reused as many times as you like. If you need to restart Projexture, in the incredibly likely event that it crashes, you can skip to this step by clicking "Open Projection Map" on the starting screen.
 
-![drawing a smiley face](07-draw.jpg)
+![positioning an image on the projection map in Krita](6_placing_mike.gif)
 
-In this instance, we're trying to draw a smiley face on the grille of this car. Be sure to save the overlay image without the projection map layer on top of it
+Open the projection map you created (it's just a PNG) in the editor of your choosing, preferably one that supports layers. In this example, I am using Krita. In a new layer, add your images or paint over the areas of the car you want to project onto. The overlay image must be the same dimensions as your projection map, and should be in a format that supports transparency, such as PNG. Delete, or hide the original projection map layer and export your overlay image to a file.
 
-![dont forget](08-save.jpg)
+![loading an overlay image onto a projection map](7_load_overlay.png)
 
-## Projecting an Overlay Image to create a Texture
+Back in the Projexture window, click "Add Overlay" and locate the overlay image you just created. The overlay image will be projected onto the texture area on the right using the information contained in the projection map on the left.
 
-Back in Projexture, load the overlay image you just created by clicking "Open Overlay". The image you created on the left will be "projected" into the texture on the right. Adjust the scan resolution if necessary to match the original scan, or set it lower if there are too many gaps in the result. You can also click "Fill Holes" to try and fill in pixel-wide gaps in the texture.
+![tweaking the final result](8_adjust_parameters_and_preview.png)
 
-![projected image](09-map.jpg)
+Once your projection is created, you may make small fixes and adjustments using the "Fix Holes" and "Grow" buttons to attemp to fill in any gaps in the scan. Not everything can be fixed, and some manual fiddling may be necessary. Make sure the "Scan Resolution" in the top right is set to the same value of your original scan!
 
-Finally, you may click "Preview on Model" to see what this projection looks like in-game, or click "Save" to save your projection as a transparent PNG, to use as a layer in another file.
+If you got here from a fresh scan, you may click "Preview on Model" to save the projection to the car and see how it looks in practice. If you like the result, click "Save" to export the final projection mapping. Add this as a layer to your livery editor of choice, and you're off to the races!
 
-![happy car](10-enjoy.jpg)
+Happy Projexting!
 
-It may take a few tries to get a projection perfect, so good luck and happy projexting!
+![some nerd](9_gabe_on_car.PNG)

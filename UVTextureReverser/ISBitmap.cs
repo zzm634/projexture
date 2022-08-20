@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.Processing.Processors;
 using SixLabors.ImageSharp.Processing.Processors.Drawing;
 using SixLabors.ImageSharp.Processing.Processors.Filters;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
@@ -109,22 +110,23 @@ namespace UVTextureReverser
         }
 
         public void toFile(String path)
-        {
-            if (path.ToLower().EndsWith("tga"))
-            {
-                TgaEncoder enc = new TgaEncoder();
-                enc.BitsPerPixel = TgaBitsPerPixel.Pixel32;
-                enc.Compression = TgaCompression.None;
-                using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+        { 
+                if (path.ToLower().EndsWith("tga"))
                 {
-                    fs.SetLength(0); // discard contents of file
-                    enc.Encode(this.bitmap, fs);
+                    TgaEncoder enc = new TgaEncoder();
+                    enc.BitsPerPixel = TgaBitsPerPixel.Pixel32;
+                    enc.Compression = TgaCompression.None;
+                    using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                    {
+                        fs.SetLength(0); // discard contents of file
+                        enc.Encode(this.bitmap, fs);
+                    }
                 }
-            }
-            else
-            {
-                this.bitmap.Save(path);
-            }
+                else
+                {
+                    this.bitmap.Save(path);
+                }
+            
         }
 
         public static ISBitmap fromFile(String path)
@@ -275,88 +277,85 @@ namespace UVTextureReverser
         }
 
         /**
-         * Modifies this bitmap by searching for transparent pixels that are surrounded by four non-transparent pixels and averages their pixel values to fill in the empty pixel
+         * Returns a new bitmap based on this bitmap by searching for transparent pixels that are surrounded by four non-transparent pixels and averages their pixel values to fill in the empty pixel
          */
-        public void fillSmallHoles(int times) {
+        public ISBitmap fillSmallHoles(bool grow = false)
+        {
+            Image<Color> newBitmap = this.bitmap.Clone();
 
-
-            for(int time = 0; time < times; time++) {
-                bool pixelsFixed = false;
-
-                for (int x = 1; x < (this.width - 1); x++)
+            for (int x = 1; x < (this.width - 1); x++)
+            {
+                for (int y = 1; y < (this.height - 1); y++)
                 {
-                    for (int y = 1; y < (this.height - 1); y++)
+
+                    Color px = this.bitmap[x, y];
+
+                    if (px.A == 0)
                     {
+                        Color pu = this.bitmap[x, y - 1];
+                        Color pd = this.bitmap[x, y + 1];
+                        Color pl = this.bitmap[x - 1, y];
+                        Color pr = this.bitmap[x + 1, y];
 
-                        Color px = this.bitmap[x, y];
 
-                        if (px.A == 0)
+                        // calculate average color of surrounding pixels
+                        long a = 0, r = 0, g = 0, b = 0;
+                        int n = 0;
+                        foreach (Color c in new List<Color> { pu, pd, pl, pr })
                         {
-                            Color pu = this.bitmap[x, y - 1];
-                            Color pd = this.bitmap[x, y + 1];
-                            Color pl = this.bitmap[x - 1, y];
-                            Color pr = this.bitmap[x + 1, y];
+                            if (c.A != 0)
+                            {
+                                a += c.A;
+                                r += c.R;
+                                g += c.G;
+                                b += c.B;
 
-                            bool pixelFixed = true;
+                                n++;
+                            }
+                        }
 
-                            // all four
-                            if (pu.A != 0 && pd.A != 0 && pl.A != 0 && pr.A != 0)
-                            {
-                                this.bitmap[x, y] = average(pu, pd, pl, pr);
-                            }
-                            else if (pu.A != 0 && pd.A != 0)
-                            {
-                                // top/bottom
-                                this.bitmap[x, y] = average(pu, pd);
-                            }
-                            else if (pl.A != 0 && pr.A != 0)
-                            {
-                                // left/right
-                                this.bitmap[x, y] = average(pl, pr);
-                            }
-                            else if (pu.A != 0 && pd.A != 0 && pl.A != 0)
-                            {
-                                this.bitmap[x, y] = average(pu, pd, pl);
-                            }
-                            else if (pu.A != 0 && pd.A != 0 && pr.A != 0)
-                            {
-                                this.bitmap[x, y] = average(pu, pd, pr);
-                            }
-                            else if (pu.A != 0 && pl.A != 0 && pr.A != 0)
-                            {
-                                this.bitmap[x, y] = average(pu, pl, pr);
-                            }
-                            else if (pd.A != 0 && pl.A != 0 && pr.A != 0)
-                            {
-                                this.bitmap[x, y] = average(pd, pl, pr);
-                            }
-                            else
-                            {
-                                pixelFixed = false;
-                            }
+                        if (n == 0)
+                        {
+                            continue;
+                        }
 
-                            pixelsFixed |= pixelFixed;
+                        Color averageColor = new Color((byte)(r / n),
+                            (byte)(g / n),
+                            (byte)(b / n),
+                            (byte)(a / n));
+
+
+                        // all four
+                        if ((n >= 3) || // surrounded by 3 or 4
+                             (pu.A != 0 && pd.A != 0) || // top/bottom
+                              (pl.A != 0 && pr.A != 0) || // left/right
+                              (n > 0 && grow)) // at least one neighbor
+                        {
+                            newBitmap[x, y] = averageColor;
                         }
                     }
                 }
-
-                if (!pixelsFixed)
-                    break;
             }
+
+            return new ISBitmap(newBitmap);
         }
 
-        private static Color average(params Color[] colors)
+        private static Color average(Color[] colors, bool skipTransparent = true)
         {
             long a = 0, r = 0, g = 0, b = 0;
-            foreach(Color c in colors)
+            int n = 0;
+            foreach (Color c in colors)
             {
-                a += c.A;
-                r += c.R;
-                g += c.G;
-                b += c.B;
-            }
+                if (!skipTransparent || c.A != 0)
+                {
+                    a += c.A;
+                    r += c.R;
+                    g += c.G;
+                    b += c.B;
 
-            int n = colors.Length;
+                    n++;
+                }
+            }
 
             return new Color((byte)(r / n),
                 (byte)(g / n),
@@ -364,38 +363,11 @@ namespace UVTextureReverser
                 (byte)(a / n));
         }
 
-        public static ISBitmap checkerboard(int textureSize, int scanSize, SDIColor black, SDIColor white)
-        {
-
-            Image<Color> bitmap = new Image<Color>(1 << textureSize, 1 << textureSize, c(black));
-            Color w = c(white);
-            Color b = c(black);
-            // TODO make this faster and better
-
-            for (int x = 0; x < bitmap.Width; x++)
-            {
-                for (int y = 0; y < bitmap.Height; y++)
-                {
-                    bool h = ((x >> (textureSize - scanSize)) & 1) == 1;
-                    bool v = ((y >> (textureSize - scanSize)) & 1) == 1;
-                    if (h != v)
-                    {
-                        bitmap[x, y] = w;
-                    }
-                    else
-                    {
-                        bitmap[x, y] = b;
-                    }
-                }
-            }
-
-            return new ISBitmap(bitmap);
-        }
-
         public static ISBitmap mask(int width, int height, int hmask, int vmask, SDIColor matchColor, SDIColor noMatchColor)
         {
             return mask(width, height, hmask, vmask, c(matchColor), c(noMatchColor));
         }
+
         public static ISBitmap mask(int width, int height, int hmask, int vmask, Color matchColor, Color noMatchColor)
         {
             Image<Color> bitmap = new Image<Color>(width, height, noMatchColor);
@@ -406,8 +378,8 @@ namespace UVTextureReverser
             {
                 for (int y = 0; y < bitmap.Height; y++)
                 {
-                    if ((x & hmask) != 0 ||
-                        (y & vmask) != 0)
+                    if (((x & hmask) != 0) ^
+                        ((y & vmask) != 0))
                     {
                         bitmap[x, y] = matchColor;
                     }
@@ -536,7 +508,7 @@ namespace UVTextureReverser
             return texture;
         }
 
-    public ISBitmap layer(ISBitmap other)
+        public ISBitmap layer(ISBitmap other, float opacity)
         {
             Debug.Assert(this.width == other.width);
             Debug.Assert(this.height == other.height);
@@ -545,7 +517,7 @@ namespace UVTextureReverser
 
             combined.bitmap.Mutate(x =>
             {
-                x.DrawImage(other.bitmap, 0.50f);
+                x.DrawImage(other.bitmap, opacity);
             });
 
             return combined;

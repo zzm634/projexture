@@ -150,9 +150,9 @@ namespace UVTextureReverser {
             } else if (whiteScan == null) {
                 textureName = "All White";
             } else if (scanningVertical == false) {
-                textureName = "Horizontal " + (1 << currentScanDepth);
+                textureName = "Horizontal " + (1 << (textureSize-currentScanDepth));
             } else {
-                textureName = "Vertical " + (1 << currentScanDepth);
+                textureName = "Vertical " + (1 << (textureSize-currentScanDepth));
             }
 
             return String.Format("{0} ({1} of {2})", textureName, getCurrentStepNumber(), getTotalStepsCount());
@@ -233,6 +233,8 @@ namespace UVTextureReverser {
         private readonly float matchMargin = 0.50f;
 
         private void addProjectionUsingManual(ISBitmap scan, Color additionMask) {
+
+            // Manual solution, pixel by pixel. Slowest, but most reliable.
 
             var distanceFromBlack = scan.getRawImage().Clone();
             distanceFromBlack.Mutate(x => {
