@@ -1,3 +1,7 @@
+# Installing and using Projexture
+
+This is still very much an alpha project, so there is no installer. Download the [latest release](https://github.com/zzm634/projexture/releases) .zip file, extract it somewhere close to your heart, and double-click on "Projexture.exe" to start the app. You will need the .NET framework installed, which it will prompt you to do so if you have not installed it already.
+
 # Using Projexture to create car textures
 
 Projexture is designed to use the iRacing model viewer to help you reverse-engineer the placement of images onto a car model.
