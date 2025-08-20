@@ -113,9 +113,12 @@ namespace UVTextureReverser
         { 
                 if (path.ToLower().EndsWith("tga"))
                 {
-                    TgaEncoder enc = new TgaEncoder();
-                    enc.BitsPerPixel = TgaBitsPerPixel.Pixel32;
-                    enc.Compression = TgaCompression.None;
+                TgaEncoder enc = new TgaEncoder()
+                    {
+                        BitsPerPixel = TgaBitsPerPixel.Pixel32,
+                        Compression = TgaCompression.None,
+                    };
+
                     using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                     {
                         fs.SetLength(0); // discard contents of file
@@ -272,7 +275,7 @@ namespace UVTextureReverser
             {
                 sdiBitmap.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                 ms.Seek(0, SeekOrigin.Begin);
-                this.bitmap = Image.Load<Color>(ms, new SixLabors.ImageSharp.Formats.Png.PngDecoder());
+                this.bitmap = Image.Load<Color>(ms);
             }
         }
 
